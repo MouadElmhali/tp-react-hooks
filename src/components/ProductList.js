@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../App';
-import useProductSearch from '../hooks/useProductSearch';
+import {useProductSearch} from '../hooks/useProductSearch';
 
 const ProductList = () => {
   const { isDarkTheme } = useContext(ThemeContext);
@@ -11,7 +11,13 @@ const ProductList = () => {
     loading, 
     error,
     // TODO: Exercice 4.1 - Récupérer la fonction de rechargement
+    reload,
     // TODO: Exercice 4.2 - Récupérer les fonctions et états de pagination
+    page,
+    totalPages,
+    nextPage,
+    prevPage,
+
   } = useProductSearch();
   
   if (loading) return (
@@ -31,6 +37,7 @@ const ProductList = () => {
   return (
     <div>
       {/* TODO: Exercice 4.1 - Ajouter le bouton de rechargement */}
+      <button onClick={reload}>reload</button>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {products.map(product => (
           <div key={product.id} className="col">
@@ -57,17 +64,17 @@ const ProductList = () => {
       </div>
       
       {/* TODO: Exercice 4.2 - Ajouter les contrôles de pagination */}
-      {/* Exemple de structure pour la pagination :
+      
       <nav className="mt-4">
         <ul className="pagination justify-content-center">
           <li className="page-item">
-            <button className="page-link" onClick={previousPage}>
+            <button className="page-link" onClick={prevPage}>
               Précédent
             </button>
           </li>
           <li className="page-item">
             <span className="page-link">
-              Page {currentPage} sur {totalPages}
+              Page {page} sur {totalPages}
             </span>
           </li>
           <li className="page-item">
@@ -77,7 +84,7 @@ const ProductList = () => {
           </li>
         </ul>
       </nav>
-      */}
+      
     </div>
   );
 };
